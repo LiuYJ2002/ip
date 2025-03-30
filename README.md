@@ -1,24 +1,206 @@
-# Duke project template
+# Daniel User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Chatbot Daniel is a simple chatbot that helps your manage your tasks and deadline. 
+The app provides you with multiple commands to add and manage your task under 3 categories : Todo, Deadline and Event.
+## Table of Contents
 
-## Setting up in Intellij
+- [Quick Start](#quick-start)
+- [Features](#features)
+    - [Add Todo task](#add-todo-task)
+    - [Add Deadline task](#add-deadline-task)
+    - [Add Event task](#add-event-task)
+    - [List All Tasks](#list-all-tasks)
+    - [Mark Tasks](#mark-tasks)
+    - [Unmark Tasks](#unmark-tasks)
+    - [Delete Tasks](#delete-tasks)
+    - [Search Tasks](#search-tasks)
+    - [Sort Tasks](#sort-tasks)
+    - [Exiting the Program](#exiting-the-program)
+    - [Saving the Data](#saving-the-data)
+- [Command Summary](#command-summary)
+## Quick Start
+1. Ensure that you have Java 17 or above installed on your computer.
+2. Download the latest .jar file from the latest release page
+3. Copy the .jar file to a folder you want to use
+4. Open a command terminal and navigate to the folder containing the .jar file.
+5. Run the following command to start the application:
+   ```bash  
+   java -jar Daniel.jar  
+## Features
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+### Add Todo task
+Add a Todo task to your task list.  
+**Format**  
+```
+todo <x>
+```
+x is your todo task name  
+**Example**  
+```
+todo borrow book
+```
+**Expected output**  
+```
+Got it. I've added this task:
+[T][]borrow book
+Now you have 1 task in the list.
+```
+### Add Deadline task
+Add a Deadline task to your task list.  
+**Format**
+```
+deadline <x> /by <datetime>
+```
+x is your todo task name and datetime is in DD/MM/YYYY HHMM  
+**Example**
+```
+deadline return book /by 2/12/2019 1800
+```
+**Expected output**
+```
+Got it. I've added this task:
+[D][]return book (by: December 02 2019, 6:00PM)
+Now you have 2 task in the list.
+```
+### Add Event task
+Add an Event task to your task list.  
+**Format**
+```
+event <x> /from <datetime> /to <datetime>
+```
+x is your event task name and datetime is in DD/MM/YYYY HHMM 
+**Example**
+```
+event meeting /from 2/12/2019 2200 /to 2/12/2019 2300
+```
+**Expected output**
+```
+Got it. I've added this task:
+[E][]meeting (from: December 02 2019, 10:00PM to: December 2019, 11:00PM)
+Now you have 3 task in the list.
+```
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### List all tasks
+List all tasks you have added
+**Format**
+```
+list
+```
+**Example**
+```
+list
+```
+**Expected output**
+```
+Here are the tasks in your list:
+1.[T][]borrow book
+2.[D][]return book (by: December 02 2019, 6:00PM)
+3.[E][]meeting (from: December 02 2019, 10:00PM to: December 2019, 11:00PM)
+```
+### mark tasks
+mark tasks you have added
+**Format**
+```
+mark <index>
+```
+index refers to the order in which the tasks are added. You can check the index by the list command.  
+**Example**
+```
+mark 1
+```
+**Expected output**
+```
+Nice I have marked this task as done:
+[T][X]borrow book
+```
+### unmark tasks
+unmark tasks you have marked
+**Format**
+```
+umark <index>
+```
+index refers to the order in which the tasks are added. You can check the index by the list command.  
+**Example**
+```
+umark 1
+```
+**Expected output**
+```
+OK, I've marked this task as not done yet:
+[T][]borrow book
+```
+### delete tasks
+delete tasks you have added
+**Format**
+```
+delete <index>
+```
+index refers to the order in which the tasks are added. You can check the index by the list command.  
+**Example**
+```
+delete 1
+```
+**Expected output**
+```
+Noted. I've removed this task:
+[T][]borrow book
+Now you have 2 tasks in the list.
+```
+### Search tasks 
+search for tasks you have added
+**Format**
+```
+find <keyword>
+```
+keyword is what to search for in task description  
+**Example**
+```
+search meeting
+```
+**Expected output**
+```
+Here are the tasks in your list:
+1.[E][]meeting (from: December 02 2019, 10:00PM to: December 2019, 11:00PM)
+```
+### Sort tasks
+sort task you have added by time. Todo task always appear last by index order and event task are sorted by start time.
+**Format**
+```
+sort
+```
+**Example**
+```
+sort
+```
+**Expected output**
+```
+After sorting Here are the tasks in your list
+1.[D][]return book (by: December 02 2019, 6:00PM)
+2.[E][]meeting (from: December 02 2019, 10:00PM to: December 2019, 11:00PM)
+```
+### Exiting the program
+exit the app
+**Format**
+```
+bye
+```
+**Example**
+```
+bye
+```
+**Expected output**  
+app will close automatically
+### Saving the data
+Data are saved in the data/daniel.txt automatically after any command that changes the data. There is no need to save manually.
+## Command summary  
+| Action            | Format                                        | Example                                          |
+|-------------------|-----------------------------------------------|--------------------------------------------------|
+| Add Todo task     | `todo <x>`                                    | `todo borrow book`                              |
+| Add Deadline task | `deadline <x> /by <datetime>`                 | `deadline return book /by 2/12/2019 1800`       |
+| Add Event task    | `event <x> /from <datetime> /to <datetime>`   | `event meeting /from 2/12/2019 2200 /to 2/12/2019 2300` |
+| List all tasks    | `list`                                         | `list`                                           |
+| Mark tasks        | `mark <index>`                                | `mark 1`                                        |
+| Unmark tasks      | `umark <index>`                               | `umark 1`                                       |
+| Delete tasks      | `delete <index>`                              | `delete 1`                                      |
+| Search tasks      | `find <keyword>`                              | `find meeting`                                  |
+| Sort tasks        | `sort`                                        | `sort`  
